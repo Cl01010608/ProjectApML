@@ -116,16 +116,6 @@ Industrial steel production dataset obtained from a manufacturing process
 * **Range:** Normalized quality metric
 * **Distribution:** Analyzed in EDA (see figures)
 
-### Features
-
-Top 20 features selected via mutual information include:
-
-* Process temperature parameters
-* Material composition ratios
-* Pressure measurements
-* Time-dependent production variables
-* Quality control indicators
-
 ---
 
 ## 4. Pipeline Workflow
