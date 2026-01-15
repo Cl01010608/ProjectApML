@@ -85,8 +85,7 @@ steel_production_analysis/
 │   ├── performance_metrics.csv
 │   └── model_predictions/
 ├── P1-report.pdf
-├── README.md
-└── requirements.txt
+└── README.md
 ```
 
 ---
@@ -102,8 +101,8 @@ Industrial steel production dataset obtained from a manufacturing process
 
 | Metric           | Value                    |
 | ---------------- | ------------------------ |
-| Training samples | 6,113                    |
-| Test samples     | 1,533                    |
+| Training samples | 7,000~                   |
+| Test samples     | 3,000~                   |
 | Total features   | 21                       |
 | Target variable  | `output` (steel quality) |
 | Feature type     | Numerical                |
@@ -273,7 +272,10 @@ Positive Validation R² models: 10/28
 * Tree-based and ensemble models outperform linear and KNN/MLP models.
 * Residual learning improves model robustness slightly for ensemble models.
 
-
+Overall, ensemble-based models combined with residual learning provided the most reliable
+results for steel quality prediction. However, the remaining gap between validation and test
+performance suggests that further improvements may require better feature engineering and
+stronger regularization rather than more complex models
 ---
 
 ## 8. Usage Guide
