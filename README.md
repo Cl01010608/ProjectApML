@@ -124,11 +124,11 @@ Industrial steel production dataset obtained from a manufacturing process
 Data Loading
   → Preprocessing
       - Train/Validation split (80/20)
-      - Feature selection (MI, k=20)
+      - Feature selection (MI, k=21)
       - Scaling (StandardScaler)
       - Residual learning
   → Exploratory Data Analysis
-  → Model Training (30+ models)
+  → Model Training (25+ models)
   → Results Analysis & Visualization
 ```
 
@@ -190,13 +190,13 @@ All outputs are saved at 300 DPI in `figures/`.
 
 ### 04_model_training.py
 
-**Purpose:** Train and compare 30+ regression models
+**Purpose:** Train and compare 25+ regression models
 
 **Model categories:**
 
 * Linear models (Linear, Ridge, Lasso, ElasticNet)
 * Tree-based models (Decision Tree, Random Forest)
-* Ensemble models (Gradient Boosting, XGBoost, LightGBM, AdaBoost)
+* Ensemble models (Gradient Boosting, XGBoost, AdaBoost)
 * Other models (SVR, KNN, MLP)
 
 **Key features:**
@@ -214,7 +214,7 @@ All outputs are saved at 300 DPI in `figures/`.
 
 Includes:
 
-* Model ranking plots (R², RMSE, MAE)
+* Model ranking plots (R², RMSE, overfitting gap)
 * Prediction vs actual plots
 * Residual diagnostics
 * Multi-metric comparison figures
@@ -227,23 +227,52 @@ Outputs are saved as publication-quality PNG files.
 
 ### Top Models (Validation Performance)
 
-| Rank | Model                 | Val R² | RMSE | Train Time (s) |
-| ---- | --------------------- | ------ | ---- | -------------- |
-| 1    | GradientBoosting_n500 | 0.4337 | 2.45 | 41.42          |
-| 2    | RandomForest_n500     | 0.4284 | 2.51 | 23.85          |
-| 3    | GradientBoosting_n300 | 0.4267 | 2.47 | 18.45          |
-| 4    | RandomForest_n300     | 0.4252 | 2.52 | 12.90          |
-| 5    | RandomForest_n100     | 0.4195 | 2.62 | 2.82           |
+**Purpose:** Analyze and visualize model performance for steel production quality prediction
+
+Includes:
+
+* Model ranking plots (R², RMSE, overfitting gap)
+* Prediction vs actual plots
+* Residual diagnostics
+* Multi-metric comparison figures
+
+Outputs are saved as publication-quality PNG files.
 
 ---
 
-## 7. Key Findings
+## 6. Results Summary
 
-* Ensemble models clearly outperform linear and single-tree models
-* Residual learning is critical for achieving positive R²
-* Increasing ensemble size improves performance with diminishing returns
-* Validation R² ≈ 0.43, but test R² is negative, indicating overfitting
-* RandomForest_n100 offers the best speed–accuracy trade-off
+### Top Models (Validation Performance)
+
+| Rank | Model                 | Type             | Val R² | Test R²  | Train R² | Val RMSE | Test RMSE | Train Time (s) |
+| ---- | -------------------- | ---------------- | ------ | -------- | -------- | -------- | --------- | -------------- |
+| 1    | GradientBoosting_n500 | GradientBoosting | 0.434  | -2.667   | 0.938    | 0.0614   | 0.1811    | 41.42          |
+| 2    | RandomForest_n500     | RandomForest     | 0.428  | -2.176   | 0.930    | 0.0617   | 0.1686    | 23.85          |
+| 3    | GradientBoosting_n300 | GradientBoosting | 0.427  | -3.174   | 0.879    | 0.0617   | 0.1932    | 18.45          |
+| 4    | RandomForest_n300     | RandomForest     | 0.425  | -2.171   | 0.924    | 0.0618   | 0.1684    | 12.90          |
+| 5    | RandomForest_n100     | RandomForest     | 0.419  | -2.155   | 0.876    | 0.0621   | 0.1680    | 2.82           |
+| 6    | GradientBoosting_n100 | GradientBoosting | 0.373  | -1.594   | 0.660    | 0.0646   | 0.1523    | 10.12          |
+| 7    | KNN_k15               | Other            | 0.167  | -1.209   | 0.305    | 0.0744   | 0.1406    | 0.85           |
+| 8    | KNN_k10               | Other            | 0.166  | -1.276   | 0.356    | 0.0745   | 0.1427    | 0.78           |
+| 9    | KNN_k5                | Other            | 0.132  | -1.522   | 0.464    | 0.0760   | 0.1502    | 0.70           |
+| 10   | DecisionTree_d5       | Tree             | 0.128  | -2.477   | 0.260    | 0.0761   | 0.1764    | 0.55           |
+
+---
+
+### Model Training Summary
+
+Total models trained: 28  
+Best Validation R²: 0.434  
+Positive Validation R² models: 10/28  
+
+---
+
+**Notes:**
+
+* Linear models (LinearRegression, Ridge, Lasso, ElasticNet) show low R² on validation and negative R² on test.
+* Tree-based and ensemble models outperform linear and KNN/MLP models.
+* Residual learning improves model robustness slightly for ensemble models.
+
 
 ---
 
@@ -272,7 +301,7 @@ run_results_analysis(results, predictions, y_test)
 * Python ≥ 3.8
 * pandas, numpy, scikit-learn
 * matplotlib, seaborn
-* xgboost (optional: lightgbm)
+* xgboost
 * jupyter
 
 ---
